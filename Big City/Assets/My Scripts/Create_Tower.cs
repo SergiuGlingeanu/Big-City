@@ -9,6 +9,7 @@ public class Create_Tower : MonoBehaviour
     public GameObject[] blocks;
 
     private City_Manager cityManager;
+    private bool _expandedX1, _expandedX_1, _expandedZ1, _expandedZ_1;
 
     void Start()
     {
@@ -16,9 +17,7 @@ public class Create_Tower : MonoBehaviour
 
         for (int i = 0; i < maxHeight; i++)
         {
-            int luck = Random.Range(0, 10);
-
-            if (i > heightBeforeChange && luck > 0)
+            if (i > heightBeforeChange)
             {
                 ExpandHorizontally(i);
             }
@@ -38,24 +37,40 @@ public class Create_Tower : MonoBehaviour
         switch (direction)
         {
             case 1:
-                Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x + 1, transform.position.y + i, transform.position.z), Quaternion.identity);
-                Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x + 2, transform.position.y + i, transform.position.z), Quaternion.identity);
-                MakeSectionTaller(new Vector3(transform.position.x + 2, transform.position.y + i, transform.position.z));
+                if (!_expandedX1)
+                {
+                    Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x + 1, transform.position.y + i, transform.position.z), Quaternion.identity);
+                    Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x + 2, transform.position.y + i, transform.position.z), Quaternion.identity);
+                    MakeSectionTaller(new Vector3(transform.position.x + 2, transform.position.y + i, transform.position.z));
+                    _expandedX1 = true;
+                }
                 break;
             case 2:
-                Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x - 1, transform.position.y + i, transform.position.z), Quaternion.identity);
-                Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x - 2, transform.position.y + i, transform.position.z), Quaternion.identity);
-                MakeSectionTaller(new Vector3(transform.position.x - 2, transform.position.y + i, transform.position.z));
+                if (!_expandedX_1)
+                {
+                    Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x - 1, transform.position.y + i, transform.position.z), Quaternion.identity);
+                    Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x - 2, transform.position.y + i, transform.position.z), Quaternion.identity);
+                    MakeSectionTaller(new Vector3(transform.position.x - 2, transform.position.y + i, transform.position.z));
+                    _expandedX_1 = true;
+                }
                 break;
             case 3:
-                Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x, transform.position.y + i, transform.position.z + 1), Quaternion.identity);
-                Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x, transform.position.y + i, transform.position.z + 2), Quaternion.identity);
-                MakeSectionTaller(new Vector3(transform.position.x, transform.position.y + i, transform.position.z + 2));
+                if (!_expandedZ1)
+                {
+                    Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x, transform.position.y + i, transform.position.z + 1), Quaternion.identity);
+                    Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x, transform.position.y + i, transform.position.z + 2), Quaternion.identity);
+                    MakeSectionTaller(new Vector3(transform.position.x, transform.position.y + i, transform.position.z + 2));
+                    _expandedZ1 = true;
+                }
                 break;
             case 4:
-                Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x, transform.position.y + i, transform.position.z - 1), Quaternion.identity);
-                Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x, transform.position.y + i, transform.position.z - 2), Quaternion.identity);
-                MakeSectionTaller(new Vector3(transform.position.x, transform.position.y + i, transform.position.z - 2));
+                if (!_expandedZ_1)
+                {
+                    Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x, transform.position.y + i, transform.position.z - 1), Quaternion.identity);
+                    Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(transform.position.x, transform.position.y + i, transform.position.z - 2), Quaternion.identity);
+                    MakeSectionTaller(new Vector3(transform.position.x, transform.position.y + i, transform.position.z - 2));
+                    _expandedZ_1 = true;
+                }
                 break;
         }
 

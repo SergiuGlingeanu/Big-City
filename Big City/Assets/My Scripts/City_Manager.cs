@@ -10,7 +10,7 @@ public class City_Manager : MonoBehaviour
 
     public int towers;
 
-    public GameObject towerBase;
+    public GameObject towerBase, cityGround;
 
     void Start()
     {
@@ -20,6 +20,10 @@ public class City_Manager : MonoBehaviour
         {
             Instantiate(towerBase, new Vector3(Random.Range(0, citySizeX), transform.position.y, Random.Range(0, citySizeZ)), Quaternion.identity);
         }
+
+        cityGround.transform.localScale = new Vector3(citySizeX/5, 1, citySizeZ/5);
+
+        Instantiate(cityGround, new Vector3(citySizeX / 2, transform.position.y, citySizeZ / 2), Quaternion.identity);
     }
 
     void Update()

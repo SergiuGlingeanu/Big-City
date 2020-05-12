@@ -298,6 +298,8 @@ MonoBehaviour:
   towers: 20
   towerBase: {fileID: 7704282914963081106, guid: ca1470a98c1de2347bfdc73230242218,
     type: 3}
+  cityGround: {fileID: 8056483915221624910, guid: a37f5cd0cc441814cbf8d050d351854a,
+    type: 3}
 --- !u!4 &1790607313
 Transform:
   m_ObjectHideFlags: 0
