@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4727ea1bd0cd06b4fb0604b01aaa9e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHeight: 10
+  maxHeight: 20
   heightBeforeChange: 2
   blocks:
   - {fileID: 100000, guid: 47da2b13d010b4a42909ec2b7d124826, type: 3}

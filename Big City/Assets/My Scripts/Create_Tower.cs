@@ -78,12 +78,22 @@ public class Create_Tower : MonoBehaviour
 
     private void MakeSectionTaller(Vector3 _initialPos)
     {
+        int yes = (int)_initialPos.y;
+
         int _currentHeight = (int)_initialPos.y;
+
+        
 
         while(_currentHeight < maxHeight - 1)
         {
             Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(_initialPos.x, _currentHeight + 1, _initialPos.z), Quaternion.identity);
             _currentHeight += 1;
+
+            if (_currentHeight > yes + heightBeforeChange)
+            {
+                ExpandHorizontally(_currentHeight);
+            }
+
         }
     }
 }
