@@ -1,16 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class City_Manager : MonoBehaviour
 {
 
-    public int citySizeX, citySizeY, citySizeZ;
+    public int citySizeX, citySizeY, citySizeZ, npcAmount, enemyAmount;
     public bool[,,] cityGrid;
 
     public int towers;
 
-    public GameObject towerBase, cityGround;
+    public GameObject towerBase, cityGround, wallBase, npc, enemy;
+
+    public NavMeshSurface surface;
+
+    public int enemiesLeft;
 
     void Start()
     {
@@ -21,13 +25,42 @@ public class City_Manager : MonoBehaviour
             Instantiate(towerBase, new Vector3(Random.Range(0, citySizeX), transform.position.y, Random.Range(0, citySizeZ)), Quaternion.identity);
         }
 
-        cityGround.transform.localScale = new Vector3(citySizeX/5, 1, citySizeZ/5);
+        for (int x = 0; x < citySizeX; x++)
+        {
+            for (int z = 0; z < citySizeZ; z++)
+            {
+                if (x == 0 || x == citySizeX - 1 || z == 0 || z == citySizeZ - 1)
+                {
+                    Instantiate(wallBase, new Vector3(x, transform.position.y, z), Quaternion.identity);
+                }
+            }
+        }
 
-        Instantiate(cityGround, new Vector3(citySizeX / 2, transform.position.y, citySizeZ / 2), Quaternion.identity);
+        Invoke("UpdateMesh", 1);
+
+        for (int i = 0; i < npcAmount; i++)
+        {
+            Instantiate(npc, new Vector3(Random.Range(0, citySizeX), transform.position.y + 1, Random.Range(0, citySizeZ)), Quaternion.identity);
+        }
+
+        for (int i = 0; i < enemyAmount; i++)
+        {
+            Instantiate(enemy, new Vector3(Random.Range(0, citySizeX), transform.position.y + 1, Random.Range(0, citySizeZ)), Quaternion.identity);
+        }
+        
+        enemiesLeft = enemyAmount;
     }
 
     void Update()
     {
-        
+        if (enemiesLeft < 1)
+        {
+            SceneManager.LoadScene(1);
+        }
+    }
+
+    void UpdateMesh()
+    {
+        surface.BuildNavMesh();
     }
 }
