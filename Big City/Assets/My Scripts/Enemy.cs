@@ -9,12 +9,16 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent _npc;
     private Transform _npcTrans;
 
+    private City_Manager cityManager;
+
     void Start()
     {
         _npc = GetComponent<NavMeshAgent>();
         _npcTrans = GetComponent<Transform>();
 
         _npc.SetDestination(Random.insideUnitSphere * 100);
+
+        cityManager = GameObject.Find("Game Manager").GetComponent<City_Manager>();
     }
 
     private void Update()
@@ -34,6 +38,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            cityManager.enemiesLeft -= 1;
             Destroy(this.gameObject);
         }
     }
